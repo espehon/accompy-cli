@@ -25,6 +25,7 @@ for entry in data:
         if key not in header:
             header.append(key)
 
+
 # Build body
 body = []
 for index, entry in enumerate(data):
@@ -37,5 +38,6 @@ for index, entry in enumerate(data):
 
 
 
-
+print(header)
+print(body)
 
