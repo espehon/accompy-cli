@@ -3,7 +3,11 @@
 
 import os
 import json
+from colorama import Fore, init
 
+
+# template for new entries. Not to be used for anything else: Not even as a header. This should be moved to json in ~/.config eventually.
+template = ['title', 'start date', 'end date', 'situation', 'action', 'result']
 
 # storage_path = os.path.expanduser("~/.local/share/accompy/storage.json")
 storage_path = os.path.expanduser("~/github/accompy/tests/base.json")
