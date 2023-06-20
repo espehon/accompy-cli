@@ -11,4 +11,4 @@ storage_path = os.path.expanduser("~/github/accompy/tests/base.json")
 with open(storage_path, 'r') as f:
     data = json.load(f)
 
-print(data)
+print(data[1]['title'])
