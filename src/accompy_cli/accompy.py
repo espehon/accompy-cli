@@ -36,8 +36,16 @@ for index, entry in enumerate(data):
         else:
             body[index].append('')
 
+# Calculate column widths
+widths = []
+for title in header:
+    widths.append(len(title))
+for row in body:
+    for index, size in enumerate(widths):
+        if len(row[index]) > size:
+            widths[index] = len(row[index])
 
-
+print(widths)
 print(header)
 print(body)
 
