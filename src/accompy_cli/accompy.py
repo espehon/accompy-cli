@@ -37,12 +37,14 @@ for index, entry in enumerate(data):
 # Calculate column widths
 padding = 4
 widths = []
-for title in header:
-    widths.append(len(title) + padding)
-for row in body:
+for title in header:    # First, get widths of header elements
+    widths.append(len(title))
+for row in body:    # Next, expand widths if any body elements are wider
     for index, size in enumerate(widths):
         if len(row[index]) > size:
-            widths[index] = len(row[index]) + padding
+            widths[index] = len(row[index])
+for index, size in enumerate(widths):   # Finally, add padding.
+        widths[index] = size + padding
 
 
 
