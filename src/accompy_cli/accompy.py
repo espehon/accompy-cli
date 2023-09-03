@@ -4,7 +4,7 @@
 import os
 import json
 from colorama import Fore, init
-
+from typing import Literal
 
 # template for new entries. Not to be used for anything else: Not even as a header unless used as a starting point. This should be moved to json in ~/.config eventually.
 template = ['title', 'start date', 'end date', 'situation', 'action', 'result']
@@ -16,44 +16,45 @@ with open(storage_path, 'r') as f:
     data = json.load(f)
 
 
+def output_table(table:dict=data, header:list=template, sort:Literal['end', 'start']='end', rows:int=None) -> str:
+    # Build header
+    for entry in data:
+        for key in entry:
+            if key not in header:
+                header.append(key)
 
-# Build header
-header = template
-for entry in data:
-    for key in entry:
-        if key not in header:
-            header.append(key)
+    # Build body
+    body = []
+    for index, entry in enumerate(data):
+        body.append([])
+        for column in header:
+            if column in entry:
+                body[index].append(entry[column])
+            else:
+                body[index].append('')
 
-# Build body
-body = []
-for index, entry in enumerate(data):
-    body.append([])
-    for column in header:
-        if column in entry:
-            body[index].append(entry[column])
-        else:
-            body[index].append('')
-
-# Calculate column widths
-padding = 4
-widths = []
-for title in header:
-    widths.append(len(title) + padding)
-for row in body:
-    for index, size in enumerate(widths):
-        if len(row[index]) > size:
-            widths[index] = len(row[index]) + padding
-
+    # Calculate column widths
+    padding = 4
+    widths = []
+    for title in header:
+        widths.append(len(title) + padding)
+    for row in body:
+        for index, size in enumerate(widths):
+            if len(row[index]) > size:
+                widths[index] = len(row[index]) + padding
 
 
-# Print table
 
-output = ''
-for index, column in enumerate(header):
-    output += column.ljust(widths[index])
-for row in body:
-    output += '\n'
-    for index, column in enumerate(row):
+    # Print table
+
+    output = ''
+    for index, column in enumerate(header):
         output += column.ljust(widths[index])
+    for row in body:
+        output += '\n'
+        for index, column in enumerate(row):
+            output += column.ljust(widths[index])
+    
+    return output
 
-print(output)
+print(output_table())
