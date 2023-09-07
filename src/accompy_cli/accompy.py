@@ -43,10 +43,7 @@ def output_table(table:dict=data, header:list=template, sort:Literal['end', 'sta
             if len(row[index]) > size:
                 widths[index] = len(row[index]) + padding
 
-
-
     # Print table
-
     output = ''
     for index, column in enumerate(header):
         output += column.ljust(widths[index])
