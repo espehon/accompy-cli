@@ -16,20 +16,34 @@ with open(storage_path, 'r') as f:
     data = json.load(f)
 
 
+def index_data(current_dict: dict) -> list:
+    """
+    Return list of keys as int from data dict.
+    This is to get around the JavaScript limitation of keys being strings
+    """
+    output = []
+    for k in current_dict.keys():
+        output.append(int(k))
+    return output
+
+
 def output_table(table:dict=data, header:list=template, sort:Literal['end', 'start']='end', rows:int=None) -> str:
+    data_ids = index_data(table)
+    data_ids.sort()
+
     # Build header
-    for entry in data:
-        for key in entry:
+    for entry in table:
+        for key in table[entry]:
             if key not in header:
                 header.append(key)
 
     # Build body
     body = []
-    for index, entry in enumerate(data):
+    for index, id in enumerate(data_ids):
         body.append([])
         for column in header:
-            if column in entry:
-                body[index].append(entry[column])
+            if column in table[str(id)]:
+                body[index].append(data[str(id)][column])
             else:
                 body[index].append('')
 
