@@ -75,3 +75,14 @@ def gather_field_values():
     user_info['skills'] = [item.strip() for item in skill_list_string.split(",")]
     
     return user_info
+
+
+def save_data(dictionary: dict) -> None:
+    pass
+    #TODO add save function
+
+def add_new_entry(master: dict, entry: dict) -> dict:
+    int_keys = [int(k) for k in master.keys()]
+    next_key = max(int_keys) + 1
+    master[str(next_key)] = entry
+    return master
