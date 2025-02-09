@@ -59,3 +59,19 @@ parser.add_argument('-r', '--rename', nargs=2, type=str, metavar=('O', 'N'), act
 parser.add_argument('-d', '--delete', nargs='+', metavar=('N1', 'N2'), action='store', type=str, help='Delete [N1] etc.')
 # parser.add_argument("name", nargs='?', help="Name of entry to fetch. (Case sensitive)")
 
+
+
+
+def gather_field_values():
+    user_info = {}
+    
+    user_info['start_date'] = questionary.text("Please enter the start date:").ask()
+    user_info['complete_date'] = questionary.text("Please enter the completed date:").ask()
+    user_info['situation'] = questionary.text("What was the situation?").ask()
+    user_info['action'] = questionary.text("What was the action?").ask()
+    user_info['result'] = questionary.text("What was the result?").ask()
+
+    skill_list_string = questionary.text("Enter any skills learned or strengthened (comma separated):").ask()
+    user_info['skills'] = [item.strip() for item in skill_list_string.split(",")]
+    
+    return user_info
